@@ -13,8 +13,7 @@ for i in range(lines):
             if letter in nums:
                 ordered[letter] = output
                 break
-    length = len(ordered)
-    print(*ordered.values(), sep=' ')
-    for k in range(1, length):
-        print(ordered[str(k)], end=' ')
-    print(ordered[str(length)])
+    keys = list(ordered.keys())
+    keys.sort()
+    sortedDict = [ordered[i] for i in keys]
+    print(*sortedDict)
