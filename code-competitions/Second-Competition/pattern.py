@@ -1,28 +1,23 @@
 patternCount = int(input())
-firstWord = [*input()]
-length = len(firstWord)
+words = []
+for i in range(patternCount):
+    words.append(input())
 
-if patternCount == 1:
+length = len(words)
+width = len(words[0])
+
+answer = ''
+
+for index in range(width):
+    chars = set()
     for i in range(length):
-        if firstWord[i] == '?':
-            firstWord[i] = 'x'
+        if words[i][index] != '?':
+            chars.add(words[i][index])
+    if len(chars) == 0:
+        answer += 'x'
+    elif len(chars) == 1:
+        answer += chars.pop()
+    else:
+        answer += '?'
 
-for i in range(patternCount - 1):
-    string = input()
-    for j in range(length):
-        if firstWord[j] == '?' and string[j] == '?':
-            firstWord[j] = '!'
-        elif firstWord[j] == '?' or firstWord == '!' and string[j] != '?':
-            firstWord[j] = string[j]
-        elif firstWord[j] != '?' and string[j] == '?':
-            continue
-        elif firstWord[j] != string[j]:
-            firstWord[j] = '#'
-
-for i in range(length):
-        if firstWord[i] == '!':
-            firstWord[i] = 'x'
-        elif firstWord[i] == '#':
-            firstWord[i] = '?'
-
-print(''.join(firstWord))
+print(answer)
