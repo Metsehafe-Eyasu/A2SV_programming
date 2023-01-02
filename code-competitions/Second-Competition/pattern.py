@@ -1,6 +1,7 @@
 patternCount = int(input())
 firstWord = [*input()]
 length = len(firstWord)
+
 if patternCount == 1:
     for i in range(length):
         if firstWord[i] == '?':
@@ -16,10 +17,12 @@ for i in range(patternCount - 1):
         elif firstWord[j] != '?' and string[j] == '?':
             continue
         elif firstWord[j] != string[j]:
-            firstWord[j] = '?'
+            firstWord[j] = '#'
 
 for i in range(length):
         if firstWord[i] == '!':
             firstWord[i] = 'x'
+        elif firstWord[i] == '#':
+            firstWord[i] = '?'
 
 print(''.join(firstWord))
