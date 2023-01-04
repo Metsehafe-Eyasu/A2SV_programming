@@ -1,23 +1,25 @@
 compares = int(input())
-sizes = {'S': 0, 'M':1, 'L':2}
-for i in range(compares):
-    shirts = input().split()
-    if sizes[shirts[0][-1]] < sizes[shirts[1][-1]]:
-        print('<')
-    elif sizes[shirts[0][-1]] > sizes[shirts[1][-1]]:
+for index in range(compares):
+    right, left = input().split()
+    rightLen = len(right)
+    leftLen = len(left)
+    if right == left:
+        print('=')
+    elif right[-1] == 'L'  and (left[-1] == 'S' or left[-1] == 'M'):
         print('>')
-    else:
-        right = len(shirts[0])
-        left = len(shirts[1])
-        if right > left:
-            if shirts[0][-1] == 'S':
-                print('<')
-            else:
-                print('>')
-        elif left < right:
-            if shirts[0][-1] == 'S':
-                print('>')
-            else:
-                print('<')
+    elif right[-1] == 'S'  and (left[-1] == 'L' or left[-1] == 'M'):
+        print('<')
+    elif right[-1] == 'M'  and left[-1] == 'S':
+        print('>')
+    elif right[-1] == 'M'  and left[-1] == 'L':
+        print('<')
+    elif right[-1] == 'S'  and left[-1] == 'S':
+        if rightLen > leftLen:
+            print('<')
         else:
-            print('=')
+            print('>')
+    elif right[-1] == 'L'  and left[-1] == 'L':
+        if rightLen > leftLen:
+            print('>')
+        else:
+            print('<')
