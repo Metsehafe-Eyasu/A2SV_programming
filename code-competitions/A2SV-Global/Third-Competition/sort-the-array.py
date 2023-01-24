@@ -9,7 +9,7 @@ while start < size-1:
         break
     start += 1
 
-while end > 0:
+while end > start:
     if array[end] < array[end - 1]:
         break
     end -= 1
@@ -25,4 +25,4 @@ for i in range(end, start, -1):
         exit()
 
 print('yes')
-print(array[end], array[start])
+print(start+1, end+1)
