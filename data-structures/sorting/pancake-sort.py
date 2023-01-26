@@ -1,10 +1,11 @@
-def flip(self, arr: list[int], end: int):
+class Solution:
+    def flip(self, arr: List[int], end: int):
         start = 0
         while start <= end:
             arr[start], arr[end] = arr[end], arr[start]
             start += 1
             end -= 1
-    def pancakeSort(self, arr: list[int]) -> list[int]:
+    def pancakeSort(self, arr: List[int]) -> List[int]:
         length = len(arr)
         placeholder = length - 1
         flips = []
@@ -22,5 +23,4 @@ def flip(self, arr: list[int], end: int):
                 self.flip(arr, placeholder)
                 flips.append(placeholder+1)
             placeholder -= 1
-        print(arr)
         return flips
