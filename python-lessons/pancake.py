@@ -11,3 +11,7 @@ class Solution:
 array = [3, 2, 1, 4]
 ans = Solution()
 print(ans.pancakeSort(array))
+
+
+# True O(n) \ /
+# https://leetcode.com/problems/pancake-sorting/solutions/494417/dew-it-true-o-n-explained-with-diagrams/
