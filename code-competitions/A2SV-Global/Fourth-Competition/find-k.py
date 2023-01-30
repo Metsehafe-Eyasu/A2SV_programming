@@ -2,13 +2,14 @@ cases = int(input())
 for _ in range(cases):
     n, k = list(map(int, input().split()))
     numbers = list(map(int, input().split()))
-    numbers.sort()
-    sumTotal = sum(numbers)
-    deducted = 0
-    for i in range(n-1):
-        print('asdfa')
-        deducted += numbers[i]-deducted
-        print('>', deducted)
-        sumTotal -= (n-i)*(numbers[i] - deducted)
-        print(sumTotal)
+    checkSet = set()
+    checker = False
+    for i in numbers:
+        if k + i in checkSet or i - k in checkSet:
+            checker = True
+            print('YES')
+            break
+        checkSet.add(i)
+    if not checker:
+        print('NO')
         
