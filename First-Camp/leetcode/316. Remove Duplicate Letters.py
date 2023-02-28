@@ -1,6 +1,5 @@
 class Solution:
     def removeDuplicateLetters(self, s: str) -> str:
-        # s = [*s]
         visited = dict()
         seen =set()
         stack = []
