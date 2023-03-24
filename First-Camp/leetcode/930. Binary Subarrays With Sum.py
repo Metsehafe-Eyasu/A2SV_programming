@@ -12,4 +12,4 @@ class Solution:
             ans += right - left + 1
         return ans
     def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
-        return self.atMost(nums, goal) - self.atMost(nums, goal - 1)       
+        return self.atMost(nums, goal) - self.atMost(nums, goal - 1)
