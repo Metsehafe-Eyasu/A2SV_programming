@@ -5,6 +5,13 @@ using namespace std;
 #define ll long long
 #define forn(i, n) for (int i = 0; i < int(n); i++)
 
+// Debugging purposes
+void display(vector<int>& arr) {
+    for (auto& i: arr)
+        cout << i << " ";
+    cout << endl;
+}
+
 void solve() {
 
 }
