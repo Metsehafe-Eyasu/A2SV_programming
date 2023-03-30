@@ -5,15 +5,28 @@ using namespace std;
 #define ll long long
 #define forn(i, n) for (int i = 0; i < int(n); i++)
 
-// Debugging purposes
+/**
+ * @author ThePhenom-Pro: Metsehafe-Eyasu
+ * @brief Custom template for CodeForces
+*/
+
+
+// display list: Debugging purposes
 void display(vector<int>& arr) {
     for (auto& i: arr)
         cout << i << " ";
     cout << endl;
 }
 
-void solve() {
+// Input list: customizable
+void inputList(vector<int>& arr, int n) {
+    for (auto& a: arr) {
+        cin >> a;
+    }
+}
 
+void solution() {
+    
 }
 
 int main() {
@@ -21,6 +34,6 @@ int main() {
     int i;
     cin >> i;
     forn(_, i) {
-        solve();
+        solution();
     }
 }
