@@ -27,14 +27,30 @@ void inputList(vector<int>& arr, int n) {
 }
 
 void solution() {
-    
+    int nodes;
+    cin >> nodes;
+    vector<vector<int>> graph(nodes + 1);
+    int ops;
+    cin >> ops;
+    forn(i, ops){
+        int opType;
+        cin >> opType;
+
+        if (opType == 1) {
+            int from, to;
+            cin >> from >> to;
+            graph[from].push_back(to);
+            graph[to].push_back(from);
+        } else {
+            int wanted;
+            cin >> wanted;
+
+            cout << (graph[wanted].size() + 1) << endl;
+        }
+    }
 }
 
 int main() {
     fast;
-    int i;
-    cin >> i;
-    forn(_, i) {
-        solution();
-    }
+    solution();
 }

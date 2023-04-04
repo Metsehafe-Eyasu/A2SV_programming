@@ -4,7 +4,6 @@ using namespace std;
 
 #define ll long long
 #define forn(i, n) for (int i = 0; i < int(n); i++)
-#define MOD 1000000007
 
 /**
  * @author ThePhenom-Pro: Metsehafe-Eyasu
@@ -20,14 +19,18 @@ void display(vector<int>& arr) {
 }
 
 // Input list: customizable
-void inputList(vector<int>& arr, int n) {
+void inputList(vector<int>& arr) {
     for (auto& a: arr) {
         cin >> a;
     }
 }
 
 void solution() {
-    
+    int a;
+    cin >> a;
+    vector<int>arr(a);
+    inputList(arr);
+    cout << arr[0] << endl;
 }
 
 int main() {

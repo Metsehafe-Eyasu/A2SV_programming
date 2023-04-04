@@ -11,23 +11,33 @@ using namespace std;
  * @brief Custom template for CodeForces
 */
 
-
-// display list: Debugging purposes
-void display(vector<int>& arr) {
-    for (auto& i: arr)
-        cout << i << " ";
-    cout << endl;
-}
-
-// Input list: customizable
-void inputList(vector<int>& arr, int n) {
-    for (auto& a: arr) {
-        cin >> a;
+ll power(ll a, ll b) {
+    ll res = 1;
+    while (b > 0) {
+        if (b & 1) {
+            res = (res * a) % MOD;
+        }
+        a = (a * a) % MOD;
+        b >>= 1;
     }
+    return res;
 }
 
 void solution() {
+    ll a, b;
+    cin >> a >> b;
     
+    ll c = 0;
+    ll count = 0;
+
+    ll d = 1;
+    while (b > 0) {
+        if (d&b) c = (c + power(a, count)) % MOD;
+        count++;
+        b >>= 1;
+    }
+    c = c % MOD;
+    cout << c << endl;
 }
 
 int main() {
