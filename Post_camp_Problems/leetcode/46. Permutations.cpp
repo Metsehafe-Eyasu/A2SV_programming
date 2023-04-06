@@ -5,7 +5,7 @@ public:
     int used = 0;
     vector<vector<int>>answer;
 
-    void backtrack(vector<int> path, vector<int>& nums) {
+    void backtrack(vector<int>& path, vector<int>& nums) {
         if (path.size() == nums.size()){
             answer.push_back(path);
             return;
