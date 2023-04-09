@@ -73,18 +73,58 @@ void inputList(vector<T> &arr, int n)
         cin >> a;
 }
 
+map<ll, ll> factorize(ll n, ll k)
+{
+    map<ll, ll> x;
+    ll co = n;
+    for (long long i = 2; i * i <= co; i++) {
+        while (co % i == 0) {
+            x[i]++;
+            x[i] = x[i] % k;
+            co = co / i;
+        }
+    }
+    if (co > 1) x[co]++;
+
+    map<ll, ll> res;
+    for (map<ll, ll>::iterator y = x.begin(); y != x.end(); ++y)
+        if (!(y->second == 0 || y->second == k))
+            res[y->first] = y->second % k;
+    
+    return res;
+}
+
 // Main function for solving the problem
 void solve()
 {
-    // Start here
+    ll n, k;
+    cin >> n >> k;
+    vector<ll>arr;
+    inputList(arr, n);
+
+    map<map<ll, ll>, ll> store;
+    ll count = 0;
+    for (int i = 0; i < n; i++)
+    {
+        // cout << arr[i] << endl;
+        map<ll, ll> curr = factorize(arr[i], k);
+        map<ll, ll> inv;
+        for (map<ll, ll>::iterator x = curr.begin(); x != curr.end(); ++x)
+            inv[x->first] = k - x->second;
+            
+        count += store[inv];
+        store[curr]++;
+    }
+    cout << count << endl;
 }
 
 int main()
 {
     fast;
     int t = 1;
-    cin >> t;
-    while (t--) solve();
+    // cin >> t;
+    while (t--)
+        solve();
 
     return 0;
 }

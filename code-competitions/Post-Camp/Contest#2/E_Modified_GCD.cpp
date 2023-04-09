@@ -43,6 +43,22 @@ ll mod_exp(ll x, ll y, ll m)
     return res;
 }
 
+// Binary search
+template <typename T>
+int binarySearch(vector<T> &arr, T target)
+{
+    int left = 0, right = arr.size() - 1;
+    while (left < right)
+    {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] >= target)
+            right = mid;
+        else
+            left = mid + 1;
+    }
+    return (arr[left] == target) ? left : -1;
+}
+
 // String to int vector
 vector<int> STIV(const string &str)
 {
@@ -73,18 +89,42 @@ void inputList(vector<T> &arr, int n)
         cin >> a;
 }
 
-// Main function for solving the problem
-void solve()
-{
-    // Start here
+void solve(){
+    int a, b;
+    cin >> a >> b;
+
+    int x = __gcd(a, b);
+    set<int, greater<int>>  factors;
+
+    for(int i = 1; i*i <= x; i++) {
+        if (x%i == 0){
+            factors.insert(i);
+            factors.insert(x/i);
+        }
+    }
+
+    int cases;
+    cin >> cases;
+
+    while (cases--) {
+        int r, l;
+        cin >> l >> r;
+
+        int res = *lower_bound(factors.begin(), factors.end(), r, greater<int>());
+        if (res > r || res < l) cout << -1 << endl;
+        else cout << res << endl;
+    }
 }
 
 int main()
 {
     fast;
     int t = 1;
-    cin >> t;
-    while (t--) solve();
+    // cin >> t;
+    while (t--)
+    {
+        solve();
+    }
 
     return 0;
 }
