@@ -80,7 +80,6 @@ void solve()
     cin >> n;
     priority_queue<int, vi, greater<int>> pq;
     vector<string> answers;
-    int count = 0;
     FOR_(i, n) {
         string action;
         cin >> action;
@@ -90,6 +89,10 @@ void solve()
             pq.push(x);
             answers.pb((action + " " + to_string(x)));
         } else if (action == "removeMin") {
+            if (pq.empty())  {
+                answers.pb("insert 1");
+                pq.push(1);
+            }
             pq.pop();
             answers.pb(action);
         } else {
@@ -98,16 +101,15 @@ void solve()
             while(!pq.empty() && pq.top() < x) {
                 pq.pop();
                 answers.pb("removeMin");
-                count++;
             }
-            pq.push(x);
-            answers.pb("insert " + to_string(x));
-            count++;
+            if (pq.empty() || pq.top() != x){
+                pq.push(x);
+                answers.pb("insert " + to_string(x));
+            }
             answers.pb(action + " " + to_string(x));
         }
-        count++;
     }
-    cout << count << endl;
+    cout << answers.size() << endl;
     display(answers);
 }
 

@@ -27,22 +27,6 @@ using namespace std;
  * @brief Custom template for CodeForces
  */
 
-// Function for modular exponentiation
-ll mod_exp(ll x, ll y, ll m)
-{
-    ll res = 1;
-    while (y > 0)
-    {
-        if (y & 1)
-        {
-            res = (res * x) % m;
-        }
-        x = (x * x) % m;
-        y >>= 1;
-    }
-    return res;
-}
-
 // Display list: Debugging purposes
 template <typename T>
 void display(vector<T> &arr)
@@ -63,50 +47,45 @@ void inputList(vector<T> &arr, int n)
         cin >> a;
 }
 
-void dfs(int index, int &minVal, vector<vi> &graph, vi &costs, vector<bool> &visited)
-{
-    if (graph[index].empty())
-    {
-        minVal = costs[index];
-        return;
+bool dfs(int i, int j, vector<string>& grid, pii p, vector<vector<bool>>& visited, char color) {
+    int n = grid.size(), m = grid[0].size();
+    visited[i][j] = true;
+    int dx[4] = {0, 1, 0, -1};  
+    int dy[4] = {1, 0, -1, 0};
+    bool check = false;
+    FOR_(k, 4) {
+        int nx = i + dx[k];
+        int ny = j + dy[k];
+        if (nx < 0 || nx >= n || ny < 0 || ny >= m
+        || (grid[nx][ny] != color)) 
+            continue;
+        else if (visited[nx][ny] && (nx != p.first || ny != p.second) ) return true;
+        else if (!visited[nx][ny])
+            check = dfs(nx, ny, grid, mp(i, j), visited, color) ? true : check;
     }
-    minVal = min(minVal, costs[index]);
-    visited[index] = true;
-    for (auto &a : graph[index])
-    {
-        if (!visited[a])
-            dfs(a, minVal, graph, costs, visited);
-    }
+    return check;
 }
 
 // Main function for solving the problem
 void solve()
 {
-    int n, p;
-    cin >> n >> p;
-    vi costs;
-    inputList(costs, n);
-    ll sum_ = 0;
-    vector<vector<int>> graph(n);
-    vector<bool> visited(n, false);
-    FOR_(_, p)  
-    {
-        int from, to;
-        cin >> from >> to;
-        graph[from - 1].push_back(to - 1);
-        graph[to - 1].push_back(from - 1);
+    int n, m;
+    cin >> n >> m;
+    vector<string> grid(n);
+    cin.ignore();
+    FOR_(i, n) {
+        cin >> grid[i];
     }
-
-    FOR_(i, n)
-    {
-        if (!visited[i])
-        {
-            int minVal = 1000000000;
-            dfs(i, minVal, graph, costs, visited);
-            sum_ += minVal;
+    vector<vector<bool>>visited(n, vector<bool>(m, false));
+    FOR_(i, n) {
+        FOR_(j, m) {
+            if (!visited[i][j] && dfs(i, j, grid, mp(-1, -1), visited, grid[i][j])) {
+                cout << "Yes\n";
+                return;
+            }
         }
     }
-    cout << sum_ << endl;
+    cout << "No\n";
 }
 
 int main()
@@ -114,8 +93,7 @@ int main()
     fast;
     int t = 1;
     // cin >> t;
-    while (t--)
-        solve();
+    while (t--) solve();
 
     return 0;
 }
