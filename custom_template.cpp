@@ -77,6 +77,18 @@ void inputList(vector<T> &arr, int n)
         cin >> a;
 }
 
+// Sort function
+void sort(vector<int>& arr) {
+    sort(arr.begin(), arr.end());
+}
+
+// Search function
+void search(vector<int>& arr, int x) {
+    int index = find(arr.begin(), arr.end(), x) - arr.begin();
+    if (index < 0) index = -1;
+    cout << index << endl;
+}
+
 ll gcd(ll a, ll b)
 {
     return b ? gcd(b, a % b) : a;
@@ -126,6 +138,9 @@ struct UnionFind
         if (parent[x] != x)
             parent[x] = find(parent[x]);
         return parent[x];
+    }
+    bool isConnected(int x, int y) {
+        return find(x) == find(y);
     }
     bool unite(int x, int y)
     {
