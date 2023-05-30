@@ -27,33 +27,8 @@ using namespace std;
  * @brief Custom template for CodeForces
  */
 
-// Function for modular exponentiation
-ll mod_exp(ll x, ll y, ll m)
-{
-    ll res = 1;
-    while (y > 0)
-    {
-        if (y & 1)
-        {
-            res = (res * x) % m;
-        }
-        x = (x * x) % m;
-        y >>= 1;
-    }
-    return res;
-}
+// int n = arr.size() - 1 - (find(arr.rbegin(), arr.rend(), 1) - arr.rbegin());
 
-// String to int vector
-vector<int> STIV(const string &str)
-{
-    vector<int> v;
-    for (char c : str)
-        if (isdigit(c))
-            v.push_back(stoi(string(1, c)));
-    return v;
-}
-
-// Display list: Debugging purposes
 template <typename T>
 void display(vector<T> &arr)
 {
@@ -64,19 +39,53 @@ void display(vector<T> &arr)
     cout << endl;
 }
 
-// Input list: customizable
-template <typename T>
-void inputList(vector<T> &arr, int n)
+vector<int> STIV(const string &str)
 {
-    arr.resize(n);
-    for (auto &a : arr)
-        cin >> a;
+    vector<int> v;
+    for (char c : str)
+        if (isdigit(c))
+            v.push_back(stoi(string(1, c)));
+    return v;
 }
 
 // Main function for solving the problem
 void solve()
 {
-    // Start here
+    string s;
+    cin >> s;
+    int n = s.size();
+    vi zero(3, -1);
+    for(int i = s.size() - 1; i >=0; i--) {
+        if (zero[1] == -1 && zero[0] != -1 && s[i] == '0') {
+            zero[1] = i;
+        } else if ( zero[2] == -1 && zero[0] != -1 && s[i] == '5') {
+            zero[2] = i;
+        } else if (zero[0] == -1 && s[i] == '0')
+            zero[0] = i;
+    }
+    vi five(3, -1);
+    for(int i = s.size() - 1; i >=0; i--) {
+        if (five[1] == -1 && five[0] != -1 && s[i] == '2') {
+            five[1] = i;
+        } else if (five[2] == -1 && five[0] != -1 && s[i] == '7') {
+            five[2] = i;
+        } else if (five[0] == -1 && s[i] == '5')
+            five[0] = i;
+    }
+    int ans = INT_MAX;
+    if (zero[0] != -1) {
+        if (zero[1] != -1)
+            ans = min(ans, n - (zero[1] + 2));
+        if (zero[2] != -1)
+            ans = min(ans, n - (zero[2] + 2));
+    }
+    if (five[0] != -1) {
+        if (five[1] != -1)
+            ans = min(ans, n - (five[1] + 2));
+        if (five[2] != -1)
+            ans = min(ans, n - (five[2] + 2));
+    }
+    cout << ans << endl;
 }
 
 int main()

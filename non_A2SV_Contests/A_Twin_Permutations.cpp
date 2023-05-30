@@ -78,31 +78,20 @@ void solve()
 {
     int n;
     cin >> n;
-    vl a, b;
-    inputList(a, n);
-    inputList(b, n);
-    sort(all(a));
-    sort(all(b));
-    int x = 0, y = 0;
-    int count = 0;
-    while (x < n && y < n) {
-        while(a[x] > b[y] && y < n) y++;
-        if (y < n)
-            count++;
-        x++;
-        y++;
+    vi arr;
+    inputList(arr, n);
+    vi ans(n);
+    FOR_(i, n) {
+        ans[i] = n + 1 - arr[i];
     }
-    if (count >= (n+1)/2)
-        cout << "YES" << endl;
-    else 
-        cout << "NO" << endl;
+    display(ans);
 }
 
 int main()
 {
     fast;
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--) solve();
 
     return 0;
