@@ -27,8 +27,6 @@ typedef priority_queue<int> max_pq;
 #define rall(x) x.rbegin(), x.rend()
 #define fi first
 #define se second
-#define pb push_back
-#define mp make_pair
 #define sz(x) (int)x.size()
 #define INF 1e9
 #define MOD 1000000007
@@ -38,17 +36,46 @@ typedef priority_queue<int> max_pq;
  * @brief Custom template for CodeForces
  */
 
+struct hash_pair {
+  template <class T1, class T2>
+  size_t operator()(const pair<T1, T2>& p) const {
+    auto hash1 = hash<T1>{}(p.first);
+    auto hash2 = hash<T2>{}(p.second);
+    return hash1 ^ hash2;
+  }
+};
+
+// unordered_map<pair<int, bool>, int, hash_pair>memo;
+vector<vector<int>> memo(101, vector<int>(2, -1));
+
+int dp (int curr, bool contain, int k, int d) {
+    if (curr <= 0)
+        return int(contain && curr == 0);
+
+    if (memo[curr][int(contain)] == -1) {
+        ll sum_ = 0;
+        for(int i = 1; i <= k; i++) {
+            bool temp = (contain || i >= d);
+            sum_ += dp(curr - i, temp, k, d);
+        }
+        memo[curr][int(contain)] = sum_%MOD;
+    }   
+    return memo[curr][int(contain)]; 
+}
+
 // Main function for solving the problem
 void solve()
 {
-    // Start here
+    int n, k, d;
+    cin >> n >> k >> d;
+    cout << dp(n, false, k, d) << endl;
 }
 
 int main()
 {
     fast_io;
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     return 0;

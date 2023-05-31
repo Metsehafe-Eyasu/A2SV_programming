@@ -27,6 +27,8 @@ typedef priority_queue<int> max_pq;
 #define rall(x) x.rbegin(), x.rend()
 #define fi first
 #define se second
+#define pb push_back
+#define mp make_pair
 #define sz(x) (int)x.size()
 #define INF 1e9
 #define MOD 1000000007
@@ -153,6 +155,16 @@ struct UnionFind
     }
 };
 
+// Pair hash
+struct hash_pair {
+  template <class T1, class T2>
+  size_t operator()(const pair<T1, T2>& p) const {
+    auto hash1 = hash<T1>{}(p.first);
+    auto hash2 = hash<T2>{}(p.second);
+    return hash1 ^ hash2;
+  }
+};
+
 vector<ll> dijkstra(int source, vector<vector<pair<int, ll>>> &adj)
 {
     int n = adj.size();
@@ -189,7 +201,7 @@ vector<ll> dijkstra(int source, vector<vector<pair<int, ll>>> &adj)
 // Main function for solving the problem
 void solve()
 {
-    // Start here
+    
 }
 
 int main()
