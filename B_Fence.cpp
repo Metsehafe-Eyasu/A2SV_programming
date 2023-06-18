@@ -14,8 +14,8 @@ typedef vector<vl> vvl;
 typedef pair<ll, ll> pll;
 typedef set<int> si;
 typedef set<ll> sl;
-typedef priority_queue<int, vector<int>, greater<int>> min_pq;
-typedef priority_queue<int> max_pq;
+typedef priority_queue<int, vector<int>, greater<int>> max_pq;
+typedef priority_queue<int> min_pq;
 
 // Macros
 #define fast_io ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
@@ -39,22 +39,40 @@ typedef priority_queue<int> max_pq;
  */
 
 template <typename T>
-void inputList(vector<T> &arr, int n) {
+void inputList(vector<T> &arr, int n)
+{
     arr.resize(n);
     for (auto &a : arr)
         cin >> a;
 }
 
 // Main function for solving the problem
-void solve() {
-    // Start here
-    
+void solve()
+{
+    int n, k;
+    cin >> n >> k;
+    vi arr;
+    inputList(arr, n);
+    ll min_, window = 0;
+    int index = 0; 
+    FOR(i, k)
+        window += arr[i];
+    min_ = window;
+    forRange(i, k, n-1) {
+        window += arr[i] - arr[i-k];
+        if (window < min_) {
+            min_ = window;
+            index = i-k+1;
+        }
+    }
+    cout << index+1 << endl;
 }
 
-int main() {
+int main()
+{
     fast_io;
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     return 0;

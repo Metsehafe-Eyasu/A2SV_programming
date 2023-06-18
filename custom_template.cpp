@@ -80,7 +80,7 @@ void inputList(vector<T> &arr, int n)
 }
 
 // Sort function
-void sort(vector<int>& arr) {
+void sort_(vector<int>& arr) {
     sort(arr.begin(), arr.end());
 }
 

@@ -18,7 +18,7 @@ typedef priority_queue<int, vector<int>, greater<int>> min_pq;
 typedef priority_queue<int> max_pq;
 
 // Macros
-#define fast_io ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define fast_io ios::sync_with_stdio(0); std::cin.tie(0); std::cout.tie(0);
 #define FOR(i, n) for (int i = 0; i < n; ++i)
 #define FORR(i, n) for (int i = n - 1; i >= 0; --i)
 #define forit(it, c) for (__typeof((c).begin()) it = (c).begin(); it != (c).end(); ++it)
@@ -39,22 +39,48 @@ typedef priority_queue<int> max_pq;
  */
 
 template <typename T>
-void inputList(vector<T> &arr, int n) {
+void inputList(vector<T> &arr, int n)
+{
     arr.resize(n);
     for (auto &a : arr)
-        cin >> a;
+        std::cin >> a;
 }
 
 // Main function for solving the problem
-void solve() {
-    // Start here
-    
+void solve()
+{
+    int n;
+    std::cin >> n;
+    vi arr;
+    inputList(arr, n);
+    vvi memo(n, vi(2, 0));
+    if (arr[0] == 0) memo[0][0] = 1, memo[0][1] = 1;
+    else if (arr[0] == 1) memo[0][1] = 1;
+    else if (arr[0] == 2) memo[0][0] = 1;
+
+    forRange(i, 1, n-1) {
+        if (arr[i] == 0) {
+            memo[i][0] = memo[i-1][0] + 1; 
+            memo[i][1] = memo[i-1][1] + 1;
+        } else if (arr[i] == 1) {
+            memo[i][0] = min(memo[i-1][0] + 1, memo[i-1][1]);
+            memo[i][1] = min(memo[i-1][0] + 1, memo[i-1][1] + 1);
+        } else if (arr[i] == 2) {
+            memo[i][0] = min(memo[i-1][0] + 1, memo[i-1][1] + 1);
+            memo[i][1] = min(memo[i-1][0], memo[i-1][1] + 1);
+        } else if (arr[i] == 3) {
+            memo[i][0] = min(memo[i-1][0] + 1, memo[i-1][1]);
+            memo[i][1] = min(memo[i-1][0], memo[i-1][1] + 1);
+        }
+    }
+    std::cout << min(memo[n-1][0], memo[n-1][1]) << endl;
 }
 
-int main() {
+int main()
+{
     fast_io;
     int t = 1;
-    cin >> t;
+    // std::cin >> t;
     while (t--) solve();
 
     return 0;

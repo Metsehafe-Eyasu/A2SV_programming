@@ -18,7 +18,7 @@ typedef priority_queue<int, vector<int>, greater<int>> min_pq;
 typedef priority_queue<int> max_pq;
 
 // Macros
-#define fast_io ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define fast_io ios::sync_with_stdio(0); std::cin.tie(0); std::cout.tie(0);
 #define FOR(i, n) for (int i = 0; i < n; ++i)
 #define FORR(i, n) for (int i = n - 1; i >= 0; --i)
 #define forit(it, c) for (__typeof((c).begin()) it = (c).begin(); it != (c).end(); ++it)
@@ -39,22 +39,41 @@ typedef priority_queue<int> max_pq;
  */
 
 template <typename T>
-void inputList(vector<T> &arr, int n) {
+void inputList(vector<T> &arr, int n)
+{
     arr.resize(n);
     for (auto &a : arr)
-        cin >> a;
+        std::cin >> a;
 }
 
 // Main function for solving the problem
-void solve() {
+void solve()
+{
     // Start here
-    
+    int n;
+    std::cin >> n;
+    map<ll, ll>hash;
+    int max_ = 0;
+    FOR(i, n) {
+        int x;
+        std::cin >> x;
+        max_ = max(max_, x);
+        hash[x] ? hash[x]++ : hash[x] = 1;
+    }
+    vl arr(max_+1,0);
+    arr[1] = hash[1];
+    arr[2] = hash[2]*2;
+    forRange(i, 3, max_) {
+        arr[i] = max(arr[i-3], arr[i-2]) + (hash[i]*i);
+    }
+    std::cout << max(arr[max_], arr[max_-1]) << endl;
 }
 
-int main() {
+int main()
+{
     fast_io;
     int t = 1;
-    cin >> t;
+    // std::cin >> t;
     while (t--) solve();
 
     return 0;

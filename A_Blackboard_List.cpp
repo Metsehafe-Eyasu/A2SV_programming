@@ -39,19 +39,30 @@ typedef priority_queue<int> max_pq;
  */
 
 template <typename T>
-void inputList(vector<T> &arr, int n) {
+void inputList(vector<T> &arr, int n)
+{
     arr.resize(n);
     for (auto &a : arr)
         cin >> a;
 }
 
 // Main function for solving the problem
-void solve() {
-    // Start here
-    
+void solve()
+{
+    int n;
+    cin >> n;
+    vl arr;
+    inputList(arr, n);
+    sort(all(arr));
+    if (arr[0] < 0) {
+        cout << arr[0] << endl;
+    } else {
+        cout << arr[n-1] << endl;
+    }
 }
 
-int main() {
+int main()
+{
     fast_io;
     int t = 1;
     cin >> t;
