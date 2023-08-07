@@ -155,6 +155,33 @@ struct UnionFind
     }
 };
 
+struct UnionFind_
+{
+    vector<int> parent, size;
+    UnionFind_(int n) : parent(n), size(n, 1) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+    int find(int x)
+    {
+        if (parent[x] != x)
+            parent[x] = find(parent[x]);
+        return parent[x];
+    }
+    bool isConnected(int x, int y) {
+        return find(x) == find(y);
+    }
+    bool unite(int x, int y)
+    {
+        x = find(x), y = find(y);
+        if (x == y) return false;
+        if (size[x] < size[y]) swap(x, y);
+        parent[y] = x;
+        size[x] += size[y];
+        return true;
+    }
+};
+
+
 // Pair hash
 struct hash_pair {
   template <class T1, class T2>
