@@ -52,13 +52,26 @@ void inputList(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int fromx, fromy, tox, toy;
+    cin >> fromx >> fromy >> tox >> toy;
+    if (fromx == tox && fromy == toy) {
+        cout << "0 0 0\n";
+        return;
+    }
+    if (fromx == tox || fromy == toy) cout << "1 ";
+    else cout << "2 ";
+
+    if (fromx+fromy == tox+toy || fromx-fromy == tox-toy) cout << "1 ";
+    else if ((fromx+fromy)%2 == (tox+toy)%2) cout << "2 ";
+    else cout << "0 ";
+
+    cout << max(abs(fromx-tox), abs(fromy-toy));
 }
 
 int main() {
     fast_io;
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     return 0;

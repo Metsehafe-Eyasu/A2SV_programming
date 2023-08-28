@@ -34,19 +34,25 @@ typedef priority_queue<int> max_pq;
 #define MOD 1000000007
 
 // Modular exponentiation function
-ll mod_exp(ll x, ll y, ll m)
-{
+ll mod_exp(ll x, ll y, ll m) {
     ll res = 1;
-    while (y > 0)
-    {
-        if (y & 1)
-        {
-            res = (res * x) % m;
-        }
+    while (y > 0) {
+        if (y & 1) res = (res * x) % m;
         x = (x * x) % m;
         y >>= 1;
     }
     return res;
+}
+
+ll squareRoot(ll x) {
+    if (x == 0 || x == 1) return x;
+    ll left = 1, right = x;
+    while (left <= right) {
+        ll mid = left + (right - left) / 2;
+        if (mid * mid > x) right = mid - 1;
+        else left = mid + 1;
+    }
+    return right;
 }
 
 // String to int vector

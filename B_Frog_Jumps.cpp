@@ -52,7 +52,19 @@ void inputList(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    string s;
+    cin >> s;
+    int n = s.size();
+    int ind = -1;
+    int diff = 0;
+    FOR(i, n) {
+        if (s[i] == 'R') {
+            diff = max(diff, i - ind);
+            ind = i;
+        }
+    }
+    diff = max(diff, n - ind);
+    cout << diff << endl;
 }
 
 int main() {

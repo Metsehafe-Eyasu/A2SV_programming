@@ -38,53 +38,34 @@ typedef priority_queue<int> max_pq;
  * @brief Custom template for CodeForces
  */
 
-template <typename T>
-void display(vector<T> &arr)
-{
-    for (auto &i : arr)
-    {
-        cout << i << " ";
-    }
-    cout << endl;
-}
 
-template <typename T>
-void inputList(vector<T> &arr, int n) {
-    arr.resize(n);
-    for (auto &a : arr)
-        cin >> a;
-}
-
-int ans = 0;
-
-pii dfs(int index, vvi& grid, string& s) {
-    pii curr = mp(0, 0);
+vi dfs(int index, vvi& grid, string& s, int& ans) {
+    vi currNode = {0, 0};
     for(auto&a: grid[index]) {
-        pii ret = dfs(a, grid, s);
-        curr.first+= ret.first;
-        curr.second+= ret.second;
+        vi child = dfs(a, grid, s, ans);
+        currNode[0]+= child[0];
+        currNode[1]+= child[1];
     }
-    if (s[index-1] == 'W') curr.first++;
-    else curr.second++;
-    if (curr.first == curr.second) ans++;
-    return curr;
+    if (s[index-1] == 'W') currNode[0]++;
+    else currNode[1]++;
+    if (currNode[0] == currNode[1]) ans++;
+    return currNode;
 }
 
 // Main function for solving the problem
 void solve() {
-    // Start here
-    ans = 0;
+    int ans = 0;
     int n;
+    string color;
     cin >> n;
-    vvi grid(n+1);
+    vvi graph(n+1);
     forRange(i, 2, n) {
         int a;
         cin >> a;
-        grid[a].pb(i);
+        graph[a].pb(i);
     }
-    string s;
-    cin >> s;
-    dfs(1, grid, s);
+    cin >> color;
+    dfs(1, graph, color, ans);
     cout << ans << endl;
 }
 

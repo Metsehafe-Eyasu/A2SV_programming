@@ -52,7 +52,16 @@ void inputList(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n;
+    cin >> n;
+    vi arr;
+    inputList(arr, n);
+    sort(all(arr));
+    int ans = 0;
+    forRange(i, 1, n-1) {
+        ans += arr[i] - arr[0];
+    }
+    cout << ans << endl;
 }
 
 int main() {

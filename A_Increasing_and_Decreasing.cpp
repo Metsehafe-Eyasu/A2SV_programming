@@ -37,22 +37,30 @@ typedef priority_queue<int> max_pq;
  * @author ThePhenom-Pro: Metsehafe-Eyasu
  * @brief Custom template for CodeForces
  */
+
 template <typename T>
 void display(vector<T> &arr) {
     for (auto &i : arr) cout << i << " ";
     cout << endl;
 }
 
-template <typename T>
-void inputList(vector<T> &arr, int n) {
-    arr.resize(n);
-    for (auto &a : arr) cin >> a;
-}
-
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int x, y, n;
+    cin >> x >> y >> n;
+    int k = (n-1)*n/2;
+    if (x+k > y) {
+        cout << -1 << endl;
+        return;
+    }
+    vi arr(n, y);
+    arr[0] = x;
+    int calc = 1;
+    for (int i = n-2; i > 0; --i) {
+        arr[i] = arr[i+1] - calc++;
+    }
+    display(arr);
 }
 
 int main() {

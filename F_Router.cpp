@@ -37,29 +37,49 @@ typedef priority_queue<int> max_pq;
  * @author ThePhenom-Pro: Metsehafe-Eyasu
  * @brief Custom template for CodeForces
  */
-template <typename T>
-void display(vector<T> &arr) {
-    for (auto &i : arr) cout << i << " ";
-    cout << endl;
-}
-
-template <typename T>
-void inputList(vector<T> &arr, int n) {
-    arr.resize(n);
-    for (auto &a : arr) cin >> a;
-}
 
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n, m;
+    cin >> n >> m;
+    vvi graph(n+m);
+    vpii band(n+m, {0, 0});
+    queue<int>q;
+    FOR(i, n) {
+        int cap, ban;
+        cin >> cap >> ban;
+        band[i] = {cap, ban};
+        q.push(i);
+    }
+    forRange(i, n, m+n-1) {
+        int cap, par;
+        cin >> cap >> par;
+        graph[par].pb(i);
+        band[par].first--;
+        band[i].first += cap;
+    }
+    int ans = -1;
+    int val = -1;
+    while (!q.empty()) {
+        int curr = q.front();
+        q.pop();
+        int c = sz(graph[curr]);
+        int bnd = band[curr].second ;
+        if (band[curr].first > 0 && ans <= (bnd/(c+1))) {
+            ans = bnd/(c+1);
+            val = curr;
+        } 
+        for(int next: graph[curr]) {
+            band[next].second = bnd/c;
+            q.push(next);
+        }
+    }
+    cout << val << endl;
 }
 
 int main() {
     fast_io;
-    int t = 1;
-    cin >> t;
-    while (t--) solve();
-
+    solve();
     return 0;
 }

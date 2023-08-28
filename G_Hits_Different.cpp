@@ -37,26 +37,53 @@ typedef priority_queue<int> max_pq;
  * @author ThePhenom-Pro: Metsehafe-Eyasu
  * @brief Custom template for CodeForces
  */
-template <typename T>
-void display(vector<T> &arr) {
-    for (auto &i : arr) cout << i << " ";
-    cout << endl;
+
+ll squareRoot(ll x) {
+    if (x == 0 || x == 1) return x;
+    ll left = 1, right = x;
+    while (left <= right) {
+        ll mid = left + (right - left) / 2;
+        if (mid * mid > x) right = mid - 1;
+        else left = mid + 1;
+    }
+    return right;
 }
 
-template <typename T>
-void inputList(vector<T> &arr, int n) {
-    arr.resize(n);
-    for (auto &a : arr) cin >> a;
+vvl pyramid(1500, vl(1500, -1));
+
+void fill() {
+    ll x = 1;
+    FOR(i, 1500) {
+        FOR(j, i+1) {
+            pyramid[i][j] = x*x;
+            x++;
+        }
+    }
+    FOR(i, 1500-2) {
+        FOR(j, i+1) {
+            pyramid[i+1][j] += pyramid[i][j];
+            pyramid[i+1][j+1] += pyramid[i][j];
+            pyramid[i+2][j+1] -= pyramid[i][j];
+        }
+    }
 }
+
+
 
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    ll n;
+    cin >> n;
+    --n;
+    ll i = (-1 + squareRoot(1 + 8*n))>>1;
+    ll j = n - i*(i+1)/2;
+    cout << pyramid[i][j] << endl;
 }
 
 int main() {
     fast_io;
+    fill();
     int t = 1;
     cin >> t;
     while (t--) solve();

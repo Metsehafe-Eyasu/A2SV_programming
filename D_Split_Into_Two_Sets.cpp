@@ -18,7 +18,10 @@ typedef priority_queue<int, vector<int>, greater<int>> min_pq;
 typedef priority_queue<int> max_pq;
 
 // Macros
-#define fast_io ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define fast_io              \
+    ios::sync_with_stdio(0); \
+    cin.tie(0);              \
+    cout.tie(0);
 #define FOR(i, n) for (int i = 0; i < n; ++i)
 #define FORR(i, n) for (int i = n - 1; i >= 0; --i)
 #define forit(it, c) for (__typeof((c).begin()) it = (c).begin(); it != (c).end(); ++it)
@@ -37,29 +40,53 @@ typedef priority_queue<int> max_pq;
  * @author ThePhenom-Pro: Metsehafe-Eyasu
  * @brief Custom template for CodeForces
  */
-template <typename T>
-void display(vector<T> &arr) {
-    for (auto &i : arr) cout << i << " ";
-    cout << endl;
-}
 
 template <typename T>
 void inputList(vector<T> &arr, int n) {
     arr.resize(n);
-    for (auto &a : arr) cin >> a;
+    for (auto &a : arr)
+        cin >> a;
+}
+
+int dfs(int curr, vector<vector<int>>&graph, vector<bool>&visited) {
+    visited[curr] = true;
+    for(int next: graph[curr])
+        if (!visited[next])
+            return dfs(next, graph, visited) + 1;
+    return 1;
 }
 
 // Main function for solving the problem
-void solve() {
+bool solve() {
     // Start here
-    
+    int n, x, y;
+    cin >> n;
+    vector<vector<int>>graph(n+1);
+    vector<bool>visited(n+1, false);
+    cout << "here\n";
+    FOR(i, n){
+        cin >> x >> y;
+        graph[x].pb(y);
+        graph[y].pb(x);
+        if (x == y || graph[x].size() > 2 || graph[y].size() > 2)
+            return false;
+    }
+    forRange(i, 1, n)
+        if (!visited[i] && (dfs(i, graph, visited)%2))
+            return false;
+    return true;
 }
 
 int main() {
     fast_io;
     int t = 1;
     cin >> t;
-    while (t--) solve();
+    while (t--) {
+        if (solve())
+            cout << "YES\n";
+        else
+            cout << "NO\n";
+    }
 
     return 0;
 }

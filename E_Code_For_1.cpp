@@ -22,7 +22,7 @@ typedef priority_queue<int> max_pq;
 #define FOR(i, n) for (int i = 0; i < n; ++i)
 #define FORR(i, n) for (int i = n - 1; i >= 0; --i)
 #define forit(it, c) for (__typeof((c).begin()) it = (c).begin(); it != (c).end(); ++it)
-#define forRange(i, a, b) for (int i = (a); i <= (b); ++i)
+#define forRange(i, a, b) for (ll i = (a); i <= (b); ++i)
 #define all(x) x.begin(), x.end()
 #define rall(x) x.rbegin(), x.rend()
 #define fi first
@@ -37,28 +37,28 @@ typedef priority_queue<int> max_pq;
  * @author ThePhenom-Pro: Metsehafe-Eyasu
  * @brief Custom template for CodeForces
  */
-template <typename T>
-void display(vector<T> &arr) {
-    for (auto &i : arr) cout << i << " ";
-    cout << endl;
-}
-
-template <typename T>
-void inputList(vector<T> &arr, int n) {
-    arr.resize(n);
-    for (auto &a : arr) cin >> a;
-}
 
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    ll n, l, r;
+    cin >> n >> l >> r;
+    ll num = 0;
+    while(n) {
+        num |= n&1;
+        num <<= 1;
+        n >>= 1;
+    }
+    num >>= 1;
+    ll ans = 0;
+    forRange(i, l, r) ans += (num & (i & -i)) > 0;  
+    cout << ans << endl;
 }
 
 int main() {
     fast_io;
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     return 0;
