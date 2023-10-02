@@ -31,7 +31,6 @@ struct Trie {
         }
         return ans;
     }
-
 };
 class Solution {
 public:
