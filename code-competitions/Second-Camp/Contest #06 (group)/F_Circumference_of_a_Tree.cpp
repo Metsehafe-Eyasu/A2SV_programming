@@ -9,7 +9,6 @@ typedef vector<ll> vl;
 typedef vector<pii> vpii;
 typedef vector<string> vs;
 typedef vector<double> vd;
-typedef vector<bool> vb;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef pair<ll, ll> pll;
@@ -45,21 +44,50 @@ void display(vector<T> &arr) {
 }
 
 template <typename T>
-void IL(vector<T> &arr, int n) {
+void inputList(vector<T> &arr, int n) {
     arr.resize(n);
     for (auto &a : arr) cin >> a;
 }
 
-// Main function for solving the problem
+int width = 0;
+
+int dfs(int i, vvi& graph, vector<bool>& visited) {
+  int fe_max = 0, se_max = 0;
+  for(int num: graph[i]) {
+    if (visited[num]) continue;
+    visited[num] = true;
+    int dist = dfs(num, graph, visited);
+    if(dist > fe_max) {
+      se_max = fe_max;
+      fe_max = dist;
+    } else if (dist > se_max) se_max = dist;
+  }
+  width = max(width, se_max + fe_max + 1);
+  return fe_max + 1;
+}
+
+// Main function for solving the problxem
 void solve() {
     // Start here
-    
+    int n;
+    cin >> n;
+    vvi graph(n+1);
+    FOR(i, n-1) {
+      int from, to;
+      cin >> from >> to;
+      graph[from].pb(to);
+      graph[to].pb(from);
+    }
+    vector<bool>visited(n+1, false);
+    visited[1] = true;
+    dfs(1, graph, visited);
+    cout << (width-1)*3 << endl;
 }
 
 int main() {
     fast_io;
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     return 0;

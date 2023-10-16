@@ -9,7 +9,6 @@ typedef vector<ll> vl;
 typedef vector<pii> vpii;
 typedef vector<string> vs;
 typedef vector<double> vd;
-typedef vector<bool> vb;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef pair<ll, ll> pll;
@@ -45,15 +44,36 @@ void display(vector<T> &arr) {
 }
 
 template <typename T>
-void IL(vector<T> &arr, int n) {
+void inputList(vector<T> &arr, int n) {
     arr.resize(n);
     for (auto &a : arr) cin >> a;
+}
+
+vl STIV(const string &str)
+{
+    vl v;
+    for (char c : str)
+        if (isdigit(c))
+            v.push_back(stoi(string(1, c)) - 1LL);
+    return v;
 }
 
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    ll n;
+    string s;
+    cin >> n >> s;
+    vl arr = STIV(s);
+    unordered_map<ll, ll> presum;
+    presum[0] = 1;
+    ll sum = 0, ans = 0;
+    for(int num: arr) {
+        sum += num;
+        ans += presum[sum];
+        presum[sum]++;
+    }
+    cout << ans << endl;
 }
 
 int main() {

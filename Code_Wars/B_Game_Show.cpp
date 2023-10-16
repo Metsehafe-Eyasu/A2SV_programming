@@ -9,7 +9,6 @@ typedef vector<ll> vl;
 typedef vector<pii> vpii;
 typedef vector<string> vs;
 typedef vector<double> vd;
-typedef vector<bool> vb;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef pair<ll, ll> pll;
@@ -45,7 +44,7 @@ void display(vector<T> &arr) {
 }
 
 template <typename T>
-void IL(vector<T> &arr, int n) {
+void inputList(vector<T> &arr, int n) {
     arr.resize(n);
     for (auto &a : arr) cin >> a;
 }
@@ -53,13 +52,27 @@ void IL(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n, k;
+    cin >> k >> n;
+    vi arr;
+    inputList(arr, n);
+    int max_ = 0;
+    forRange(i, 2, 1e4) {
+        int j = 0, coins = k;
+        for(j = 0; j < n; j++) {
+            if (arr[j]%i == 0) continue;
+            if (arr[j] > coins) break;
+            coins -= arr[j];
+        }
+        max_ = max(max_, j);
+    }
+    cout << max_ << endl;
 }
 
 int main() {
     fast_io;
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     return 0;

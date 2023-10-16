@@ -9,7 +9,6 @@ typedef vector<ll> vl;
 typedef vector<pii> vpii;
 typedef vector<string> vs;
 typedef vector<double> vd;
-typedef vector<bool> vb;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef pair<ll, ll> pll;
@@ -45,21 +44,52 @@ void display(vector<T> &arr) {
 }
 
 template <typename T>
-void IL(vector<T> &arr, int n) {
+void inputList(vector<T> &arr, int n) {
     arr.resize(n);
     for (auto &a : arr) cin >> a;
 }
 
+unordered_set<int> Gvisited;
+
+bool dfs(int node, int parent, vvi& graph, unordered_set<int>&visited) {
+  if (graph[node].size() > 2) return false;
+  Gvisited.insert(node);
+  visited.insert(node);
+  bool ans = false;
+  for(int neigh: graph[node]) {
+    if(neigh == parent) continue;
+    if (visited.count(neigh)) return true;
+    ans = ans || dfs(neigh, node, graph, visited);
+  }
+  return ans;
+} 
+
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n, m;
+    cin >> n >> m;
+    vvi graph(n+1);
+    FOR(_, m) {
+      int from, to;
+      cin >> from >> to;
+      graph[from].pb(to); 
+      graph[to].pb(from);
+    }
+    int count = 0;
+    forRange(i, 1, n) {
+      if(!Gvisited.count(i)) {
+        unordered_set<int>visited;
+        if (dfs(i, -1, graph, visited)) count++;
+      }
+    }
+    cout << count << endl;
 }
 
 int main() {
     fast_io;
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     return 0;

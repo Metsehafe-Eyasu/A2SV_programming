@@ -9,7 +9,6 @@ typedef vector<ll> vl;
 typedef vector<pii> vpii;
 typedef vector<string> vs;
 typedef vector<double> vd;
-typedef vector<bool> vb;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef pair<ll, ll> pll;
@@ -45,7 +44,7 @@ void display(vector<T> &arr) {
 }
 
 template <typename T>
-void IL(vector<T> &arr, int n) {
+void inputList(vector<T> &arr, int n) {
     arr.resize(n);
     for (auto &a : arr) cin >> a;
 }
@@ -53,13 +52,27 @@ void IL(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    ll n, m;
+    cin >> n >> m;
+    vl a, b;
+    inputList(a, n);
+    inputList(b, m);
+    sort(all(a));
+    sort(all(b));
+    ll top = 0;
+    ll max_dif = 0;
+    FOR(bot, m) {
+      while (top < n-1 && abs(a[top] - b[bot]) > abs(a[top+1] - b[bot])) top++;
+      max_dif = max(max_dif, abs(a[top] - b[bot]));
+      top++;
+    }
+    std::cout << max_dif << endl;
 }
 
 int main() {
     fast_io;
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     return 0;

@@ -9,7 +9,6 @@ typedef vector<ll> vl;
 typedef vector<pii> vpii;
 typedef vector<string> vs;
 typedef vector<double> vd;
-typedef vector<bool> vb;
 typedef vector<vi> vvi;
 typedef vector<vl> vvl;
 typedef pair<ll, ll> pll;
@@ -45,21 +44,38 @@ void display(vector<T> &arr) {
 }
 
 template <typename T>
-void IL(vector<T> &arr, int n) {
+void inputList(vector<T> &arr, int n) {
     arr.resize(n);
     for (auto &a : arr) cin >> a;
+}
+
+ll mod_exp(ll x, ll y) {
+    ll res = 1;
+    while (y > 0) {
+        if (y & 1) res = (res * x);
+        x = (x * x);
+        y >>= 1;
+    }
+    return res;
 }
 
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n;
+    cin >> n;
+    if (n%2) {
+      cout << 0 << endl;
+      return;
+    }
+    ll ans = powl(2, n/2);
+    cout << ans << endl;
 }
 
 int main() {
     fast_io;
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     return 0;
