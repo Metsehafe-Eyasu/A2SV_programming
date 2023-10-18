@@ -134,15 +134,12 @@ int binary_search(const vector<T> &v, T target)
     return -1; // Not found
 }
 
-struct UnionFind
-{
+struct UnionFind {
     vector<int> parent, rank;
-    UnionFind(int n) : parent(n), rank(n, 1)
-    {
+    UnionFind(int n) : parent(n), rank(n, 1) {
         iota(parent.begin(), parent.end(), 0);
     }
-    int find(int x)
-    {
+    int find(int x) {
         if (parent[x] != x)
             parent[x] = find(parent[x]);
         return parent[x];
@@ -150,8 +147,7 @@ struct UnionFind
     bool isConnected(int x, int y) {
         return find(x) == find(y);
     }
-    bool unite(int x, int y)
-    {
+    bool unite(int x, int y) {
         x = find(x), y = find(y);
         if (x == y) return false;
         if (rank[x] < rank[y]) swap(x, y);
@@ -161,14 +157,13 @@ struct UnionFind
     }
 };
 
-struct UnionFind_
+struct UnionFind
 {
     vector<int> parent, size;
-    UnionFind_(int n) : parent(n), size(n, 1) {
+    UnionFind(int n) : parent(n), size(n, 1) {
         iota(parent.begin(), parent.end(), 0);
     }
-    int find(int x)
-    {
+    int find(int x) {
         if (parent[x] != x)
             parent[x] = find(parent[x]);
         return parent[x];
@@ -176,8 +171,7 @@ struct UnionFind_
     bool isConnected(int x, int y) {
         return find(x) == find(y);
     }
-    bool unite(int x, int y)
-    {
+    bool unite(int x, int y) {
         x = find(x), y = find(y);
         if (x == y) return false;
         if (size[x] < size[y]) swap(x, y);
@@ -228,6 +222,17 @@ vector<ll> dijkstra(int source, vector<vector<pair<int, ll>>> &adj)
     }
 
     return dist;
+}
+
+vector<bool> sieveOfEratosthenes(int n) {
+    vector<bool> isPrime(n + 1, true);
+    isPrime[0] = isPrime[1] = false;
+    for (int i = 2; i * i <= n; i++) 
+        if (isPrime[i]) 
+            for (int j = i * i; j <= n; j += i) 
+                isPrime[j] = false;
+
+    return isPrime;
 }
 
 
