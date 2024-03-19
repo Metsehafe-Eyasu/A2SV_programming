@@ -66,7 +66,10 @@ void IL(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n, k;
+    cin >> n >> k;
+    int ans = k >= n-1 ? 1 : n;
+    cout << ans << endl;
 }
 
 int main() {

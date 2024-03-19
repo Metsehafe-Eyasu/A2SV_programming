@@ -66,7 +66,40 @@ void IL(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n, k;
+    cin >> n >> k;
+    vi arr;
+    IL(arr, 2*n);
+    map<int, int> left, right;
+    FOR(i, n) {
+        left[arr[i]]++;
+        right[arr[i+n]]++;
+    }
+    vi l, r;
+    vpii temp1, temp2;
+    for(auto [key, val]: left) temp1.pb({val, key});
+    sort(rall(temp1));
+    for(auto [val, key]: temp1) {
+        if(l.size() == 2*k) break;
+        if(val == 2 && l.size() + 2 <= 2*k){
+            l.pb(key);
+            l.pb(key);
+        } else if (val == 1){
+            l.pb(key);
+            r.pb(key);
+        }
+    }
+    for(auto [key, val]: right) temp2.pb({val, key});
+    sort(rall(temp2));
+    for(auto [val, key]: temp2) {
+        if(r.size() == 2*k) break;
+        if(val == 2 && r.size() + 2 <= 2*k){
+            r.pb(key);
+            r.pb(key);
+        }
+    }
+    display(l);
+    display(r);
 }
 
 int main() {

@@ -39,13 +39,6 @@ using vv = vector<vector<T>>;
 #define INF 1e9
 #define MOD 1000000007
 
-void YES() {
-    cout << "YES\n";
-}
-void NO() {
-    cout << "NO\n";
-}
-
 /**
  * @author ThePhenom-Pro: Metsehafe-Eyasu
  * @brief Custom template for CodeForces
@@ -63,10 +56,48 @@ void IL(vector<T> &arr, int n) {
     for (auto &a : arr) cin >> a;
 }
 
+bool inbound(int x, int y, int len) {
+    if (x >= 0 && x < 2 && y >= 0 && y < len) return true;
+    return false;
+}
+
 // Main function for solving the problem
 void solve() {
     // Start here
+    int n;
+    cin >> n;
+    vs grid;
+    IL(grid, 2);
     
+    queue<pii> bfs;
+    bfs.push({0,0});
+    
+    set<pii> visited;
+    visited.insert({0,0});
+
+    int dirs[] = {-1, 0, 1, 0, -1};
+    while(!bfs.empty()) {
+        pii curr = bfs.front();
+        bfs.pop();
+        if (curr == pii(1, n-1)) {
+            cout << "YES\n";
+            return;
+        }
+
+        FOR(i, 4) {
+            int nx = dirs[i] + curr.first;
+            int ny = dirs[i+1] + curr.second;
+            if(!inbound(nx, ny, n)) continue;
+
+            if (grid[nx][ny] == '<') ny--;
+            else ny++;
+            if (visited.find(mp(nx, ny)) == visited.end()) {
+                bfs.push({nx, ny});
+                visited.insert({nx, ny});
+            }
+        }
+    }
+    cout << "NO\n";
 }
 
 int main() {

@@ -16,17 +16,19 @@ typedef pair<ll, ll> pll;
 typedef set<int> si;
 typedef set<ll> sl;
 
-template<typename T>
+template <typename T>
 using min_pq = priority_queue<T, vector<T>, greater<T>>;
-template<typename T>
+template <typename T>
 using max_pq = priority_queue<T>;
-template<typename Key1, typename Key2, typename Value>
+template <typename Key1, typename Key2, typename Value>
 using umumap = unordered_map<Key1, unordered_map<Key2, Value>>;
-template<typename T>
+template <typename T>
 using vv = vector<vector<T>>;
 
 // Macros
-#define fast_io ios::sync_with_stdio(0); cin.tie(0);
+#define fast_io              \
+    ios::sync_with_stdio(0); \
+    cin.tie(0);
 #define FOR(i, n) for (int i = 0; i < n; ++i)
 #define FORR(i, n) for (int i = n - 1; i >= 0; --i)
 #define forit(it, c) for (__typeof((c).begin()) it = (c).begin(); it != (c).end(); ++it)
@@ -39,10 +41,12 @@ using vv = vector<vector<T>>;
 #define INF 1e9
 #define MOD 1000000007
 
-void YES() {
+void YES()
+{
     cout << "YES\n";
 }
-void NO() {
+void NO()
+{
     cout << "NO\n";
 }
 
@@ -52,28 +56,61 @@ void NO() {
  */
 
 template <typename T>
-void display(vector<T> &arr) {
-    for (auto &i : arr) cout << i << " ";
+void display(vector<T> arr)
+{
+    for (auto &i : arr)
+        cout << i << " ";
     cout << endl;
 }
 
 template <typename T>
-void IL(vector<T> &arr, int n) {
+void IL(vector<T> &arr, int n)
+{
     arr.resize(n);
-    for (auto &a : arr) cin >> a;
+    for (auto &a : arr)
+        cin >> a;
 }
 
 // Main function for solving the problem
-void solve() {
+void solve()
+{
     // Start here
-    
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    vi prefix(n + 1, 0);
+    FOR(i, n)
+    {
+        prefix[i + 1] += prefix[i] + (s[i] == '1');
+    }
+    int ans = 0;
+    int diff = n;
+    forRange(i, 0, n)
+    {
+        int lzero = i - prefix[i];
+        int rzero = n - prefix[n] - lzero;
+        int lone = prefix[i];
+        int rone = prefix[n] - prefix[i];
+        if (lzero >= lone && rone >= rzero)
+        {
+            if (abs(double(n) / 2 - i) < diff)
+            {
+                ans = i;
+                diff = abs(n / 2 - i);
+            }
+        }
+    }
+    cout << ans << endl;
 }
 
-int main() {
+int main()
+{
     fast_io;
     int t = 1;
     cin >> t;
-    while (t--) solve();
+    while (t--)
+        solve();
 
     return 0;
 }

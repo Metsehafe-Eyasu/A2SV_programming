@@ -66,7 +66,40 @@ void IL(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n, target;
+    cin >> n >> target;
+    vi arr;
+    IL(arr, n);
+    int l = 0, r = n;
+    int index = find(all(arr), target) - arr.begin();
+    bool seen = false;
+    while (l + 1 < r) {
+        int mid = l + (r-l)/2;
+        if (arr[mid] == target) seen = true;
+        if (arr[mid] <= target) l = mid;
+        else r = mid;
+    }
+    if (arr[l] == target) {
+        cout << 0 << endl;
+        return;
+    } 
+    if(!seen || arr[l] < target) {
+        cout << 1 << endl;
+        cout << l + 1 << " " << index + 1 << endl;
+        return;
+    }
+    swap(arr[l], arr[target]);
+    cout << 2 << endl;
+    cout << l + 1 << " " << index + 1 << endl;
+
+    index = l;
+    l = 0, r = n;
+    while (l + 1 < r) {
+        int mid = l + (r-l)/2;
+        if (arr[mid] <= target) l = mid;
+        else r = mid;
+    }
+    cout << l + 1 << " " << index + 1 << endl;
 }
 
 int main() {

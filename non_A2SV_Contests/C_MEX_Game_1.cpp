@@ -66,7 +66,32 @@ void IL(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n;
+    cin >> n;
+    vi arr;
+    IL(arr, n);
+    sort(all(arr));
+    set<int>seen;
+    map<int, int> counter;
+    for(int num:arr) counter[num]++;
+    bool x = true;
+    for(int num: arr) {
+        if (counter[num] > 1)
+            seen.insert(num);
+        else {
+            if(x) {
+                x = false;
+                seen.insert(num);
+            } else break;
+        }
+    }
+
+    FOR(i, arr[n-1]+2) {
+        if(seen.find(i) == seen.end()) {
+            cout << i << endl;
+            return;
+        }
+    }
 }
 
 int main() {

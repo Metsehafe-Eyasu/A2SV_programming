@@ -66,7 +66,18 @@ void IL(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n, m;
+    cin >> n >> m;
+    vl a, b;
+    IL(a,n);
+    IL(b,n);
+    ll ans = 0;
+    ll res = LLONG_MAX;
+    FORR(i, n) {
+        if (i <= m - 1) res = min(res, a[i] + ans);
+        ans += min(a[i], b[i]);
+    }
+    cout << res << endl;
 }
 
 int main() {

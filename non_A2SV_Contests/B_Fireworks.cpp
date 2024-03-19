@@ -66,7 +66,11 @@ void IL(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    ll a, b, m;
+    cin >> a >> b >> m;
+    m++;
+    ll ans = (m+a-1)/a + (m+b-1)/b;
+    cout << ans << endl;
 }
 
 int main() {

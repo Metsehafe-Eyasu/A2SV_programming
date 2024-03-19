@@ -39,13 +39,6 @@ using vv = vector<vector<T>>;
 #define INF 1e9
 #define MOD 1000000007
 
-void YES() {
-    cout << "YES\n";
-}
-void NO() {
-    cout << "NO\n";
-}
-
 /**
  * @author ThePhenom-Pro: Metsehafe-Eyasu
  * @brief Custom template for CodeForces
@@ -66,7 +59,17 @@ void IL(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n;
+    cin >> n;
+    if (n % 2) cout << "NO\n";
+    else {
+        string s;
+        FOR(i, n/2) {
+            s += string(2, 'A' + i);
+        }
+        cout << "YES" << endl;
+        cout << s << endl;
+    }
 }
 
 int main() {

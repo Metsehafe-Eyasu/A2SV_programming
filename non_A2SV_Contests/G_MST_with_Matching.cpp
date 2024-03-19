@@ -39,13 +39,6 @@ using vv = vector<vector<T>>;
 #define INF 1e9
 #define MOD 1000000007
 
-void YES() {
-    cout << "YES\n";
-}
-void NO() {
-    cout << "NO\n";
-}
-
 /**
  * @author ThePhenom-Pro: Metsehafe-Eyasu
  * @brief Custom template for CodeForces
@@ -63,16 +56,52 @@ void IL(vector<T> &arr, int n) {
     for (auto &a : arr) cin >> a;
 }
 
+struct UnionFind
+{
+    vector<int> parent, size;
+    UnionFind(int n) : parent(n), size(n, 1) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+    int find(int x) {
+        if (parent[x] != x)
+            parent[x] = find(parent[x]);
+        return parent[x];
+    }
+    bool isConnected(int x, int y) {
+        return find(x) == find(y);
+    }
+    bool unite(int x, int y) {
+        x = find(x), y = find(y);
+        if (x == y) return false;
+        if (size[x] < size[y]) swap(x, y);
+        parent[y] = x;
+        size[x] += size[y];
+        return true;
+    }
+};
+
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n, c;
+    cin >> n >> c;
+    vvi grid(n);
+    for(auto& row: grid) IL(row, n);
+    vvi edges;
+    FOR(i, n) 
+        forRange(j, i+1, n-1) 
+            if (grid[i][j])
+                edges.push_back({grid[i][j], i, j});
+
+    for(auto& edge: edges) display(edge);
+
+
 }
 
 int main() {
     fast_io;
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) solve();
 
     return 0;

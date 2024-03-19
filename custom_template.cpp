@@ -35,6 +35,7 @@ typedef priority_queue<int> max_pq;
 
 // Modular exponentiation function
 ll mod_exp(ll x, ll y, ll m) {
+    x%=m;
     ll res = 1;
     while (y > 0) {
         if (y & 1) res = (res * x) % m;

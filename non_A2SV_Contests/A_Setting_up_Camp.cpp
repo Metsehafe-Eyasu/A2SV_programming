@@ -66,7 +66,15 @@ void IL(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    ll in, ex, un;
+    cin >> in >> ex >> un;
+    ll ex_rem = ex%3;
+    if(ex_rem > 0 && ex_rem + un < 3) {
+        cout << -1 << endl;
+        return;
+    }
+    ll ans = ex/3 + (ex_rem + un + 2)/3 + in;
+    cout << ans << endl;
 }
 
 int main() {
