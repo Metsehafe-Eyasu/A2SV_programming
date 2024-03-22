@@ -11,8 +11,14 @@ def S(): return input()
 
 
 def solution():
-    
-    return 0
+    n, k = IL()
+    top = k
+    if n == k:
+        return 0
+    ans = (n-k-1)*3 + (((top*(top-1))//(2*top)) * 3) + (((top*(top-1))%(2*top)) > 0)
+    return ans + 1
+
+
 
 cases = 1
 cases = I()

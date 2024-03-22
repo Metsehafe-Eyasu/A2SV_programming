@@ -11,10 +11,14 @@ def S(): return input()
 
 
 def solution():
-    
-    return 0
+    n, h = IL()
+    blankets = 0
+    for i in range(n):
+        blankets += max(IL())
+    return 'YES' if blankets >= h else 'NO'
 
-cases = 1
+
 cases = I()
+# cases = 1
 for i in range(cases):
     print(solution())
