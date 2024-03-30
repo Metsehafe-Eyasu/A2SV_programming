@@ -20,14 +20,13 @@ template<typename T>
 using min_pq = priority_queue<T, vector<T>, greater<T>>;
 template<typename T>
 using max_pq = priority_queue<T>;
-template<typename Key, typename Value>
-using umap = unordered_map<typename Key, typename Val>; 
 template<typename Key1, typename Key2, typename Value>
 using umumap = unordered_map<Key1, unordered_map<Key2, Value>>;
 template<typename T>
 using vv = vector<vector<T>>;
 
 // Macros
+#define fast_io ios::sync_with_stdio(0); cin.tie(0);
 #define FOR(i, n) for (int i = 0; i < n; ++i)
 #define FORR(i, n) for (int i = n - 1; i >= 0; --i)
 #define forit(it, c) for (__typeof((c).begin()) it = (c).begin(); it != (c).end(); ++it)
@@ -64,14 +63,45 @@ void IL(vector<T> &arr, int n) {
     for (auto &a : arr) cin >> a;
 }
 
+bool checker(int n) {
+    while(n) {
+        if (n%10 >= 2) return false;
+        n/=10;
+    }
+    return true;
+}
+
+unordered_map<int, bool> memo;
+
+bool dp(int n, vi& divisors) {
+    if(memo.find(n) != memo.end()) return memo[n];
+    if(checker(n)) {
+        memo[n] = true;
+        return true;
+    }
+    for(int num: divisors) {
+        if(n >= num && n%num == 0 && dp(n/num, divisors)) {
+            memo[n] = true; 
+            break;
+        } 
+    }
+    if(!memo[n]) memo[n] = false;
+    return memo[n];
+}
+
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n;
+    cin >> n;
+    vector<int> divisors{10, 11, 100, 101, 110, 111, 1000, 1001, 1010, 1011, 1100, 1101, 1110, 1111};
+
+    if(dp(n, divisors)) YES();
+    else NO();
 }
 
 int main() {
-    ios::sync_with_stdio(0); cin.tie(0);
+    fast_io;
     int t = 1;
     cin >> t;
     while (t--) solve();

@@ -31,7 +31,7 @@ typedef priority_queue<int> max_pq;
 #define mp make_pair
 #define sz(x) (int)x.size()
 #define INF 1e9
-#define MOD 1000000007
+#define MOD 1'000'000'007
 
 // Modular exponentiation function
 ll mod_exp(ll x, ll y, ll m) {
@@ -43,6 +43,19 @@ ll mod_exp(ll x, ll y, ll m) {
         y >>= 1;
     }
     return res;
+}
+
+// Modular inverse
+template <typename T>
+T inverse(T a, T m) {
+  T u = 0, v = 1;
+  while (a != 0) {
+    T t = m / a;
+    m -= t * a; swap(a, m);
+    u -= t * v; swap(u, v);
+  }
+  assert(m == 1);
+  return u;
 }
 
 ll squareRoot(ll x) {
@@ -57,8 +70,7 @@ ll squareRoot(ll x) {
 }
 
 // String to int vector
-vi STIV(const string &str)
-{
+vi STIV(const string &str) {
     vi v;
     for (char c : str)
         if (isdigit(c))
@@ -86,53 +98,20 @@ void inputList(vector<T> &arr, int n)
         cin >> a;
 }
 
-// Sort function
-void sort_(vector<int>& arr) {
-    sort(arr.begin(), arr.end());
-}
-
-// Search function
-void search(vector<int>& arr, int x) {
-    int index = find(arr.begin(), arr.end(), x) - arr.begin();
-    if (index < 0) index = -1;
-    cout << index << endl;
-}
-
-ll gcd(ll a, ll b)
-{
+ll gcd(ll a, ll b) {
     return b ? gcd(b, a % b) : a;
 }
 
-ll lcm(ll a, ll b)
-{
+ll lcm(ll a, ll b) {
     return a / gcd(a, b) * b;
 }
 
-bool is_prime(ll n)
-{
+bool is_prime(ll n) {
     if (n <= 1) return false;
     for (ll i = 2; i * i <= n; ++i)
-    {
-        if (n % i == 0) return false;
-    }
+        if (n % i == 0) 
+            return false;
     return true;
-}
-
-template <typename T>
-int binary_search(const vector<T> &v, T target)
-{
-    int left = 0, right = sz(v) - 1;
-    while (left <= right)
-    {
-        int mid = left + (right - left) / 2;
-        if (v[mid] == target)
-            return mid;
-        else if (v[mid] < target)
-            left = mid + 1;
-        else
-            right = mid - 1;
-    }
-    return -1; // Not found
 }
 
 struct UnionFind {
@@ -158,8 +137,7 @@ struct UnionFind {
     }
 };
 
-struct UnionFind
-{
+struct UnionFind {
     vector<int> parent, size;
     UnionFind(int n) : parent(n), size(n, 1) {
         iota(parent.begin(), parent.end(), 0);
@@ -182,60 +160,28 @@ struct UnionFind
     }
 };
 
-
-// Pair hash
-struct hash_pair {
-  template <class T1, class T2>
-  size_t operator()(const pair<T1, T2>& p) const {
-    auto hash1 = hash<T1>{}(p.first);
-    auto hash2 = hash<T2>{}(p.second);
-    return hash1 ^ hash2;
-  }
-};
-
-vector<ll> dijkstra(int source, vector<vector<pair<int, ll>>> &adj)
-{
-    int n = adj.size();
-    vector<ll> dist(n, INF);
-    dist[source] = 0;
-    priority_queue<pll, vector<pll>, greater<pll>> pq;
-    pq.push({0, source});
-
-    while (!pq.empty())
-    {
-        ll d = pq.top().first;
-        int v = pq.top().second;
-        pq.pop();
-
-        if (d > dist[v]) continue;
-
-        for (auto &edge : adj[v])
-        {
-            int u = edge.first;
-            ll w = edge.second;
-
-            if (dist[v] + w < dist[u])
-            {
-                dist[u] = dist[v] + w;
-                pq.push({dist[u], u});
-            }
-        }
-    }
-
-    return dist;
-}
-
-vector<bool> sieveOfEratosthenes(int n) {
+template<typename T>
+vector<bool> sieve(T n) {
     vector<bool> isPrime(n + 1, true);
     isPrime[0] = isPrime[1] = false;
-    for (int i = 2; i * i <= n; i++) 
+    for (T i = 2; i * i <= n; i++) 
         if (isPrime[i]) 
-            for (int j = i * i; j <= n; j += i) 
+            for (T j = i * i; j <= n; j += i) 
                 isPrime[j] = false;
-
     return isPrime;
 }
 
+template<typename T>
+vector<T> factorize(T n) {
+    vector<T> factors;
+    for (T p = 2; p * p <= n; ++p) {
+        while (n % p == 0) {
+            factors.push_back(p); n /= p;
+        }
+    }
+    if (n > 1) factors.push_back(n);
+    return factors;
+}
 
 // Main function for solving the problem
 void solve()

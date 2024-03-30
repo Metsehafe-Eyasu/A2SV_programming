@@ -20,14 +20,13 @@ template<typename T>
 using min_pq = priority_queue<T, vector<T>, greater<T>>;
 template<typename T>
 using max_pq = priority_queue<T>;
-template<typename Key, typename Value>
-using umap = unordered_map<typename Key, typename Val>; 
 template<typename Key1, typename Key2, typename Value>
 using umumap = unordered_map<Key1, unordered_map<Key2, Value>>;
 template<typename T>
 using vv = vector<vector<T>>;
 
 // Macros
+#define fast_io ios::sync_with_stdio(0); cin.tie(0);
 #define FOR(i, n) for (int i = 0; i < n; ++i)
 #define FORR(i, n) for (int i = n - 1; i >= 0; --i)
 #define forit(it, c) for (__typeof((c).begin()) it = (c).begin(); it != (c).end(); ++it)
@@ -67,11 +66,30 @@ void IL(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
+    string s;
+    cin >> s;
+    string answer;
+    int first = stoi(s.substr(0, 2));
+    int second = stoi(s.substr(3, 2));
+    string time = " AM";
+    if (first >= 12){
+        time = " PM";
+        first -= 12;
+    } 
     
+
+    if (first == 0) first = 12;
+    else if (first < 10) answer += "0";
+    answer += to_string(first);
+    answer += ":";
+    if (second < 10) answer += "0";
+    answer += to_string(second);
+    answer += time;
+    cout << answer << "\n";
 }
 
 int main() {
-    ios::sync_with_stdio(0); cin.tie(0);
+    fast_io;
     int t = 1;
     cin >> t;
     while (t--) solve();
