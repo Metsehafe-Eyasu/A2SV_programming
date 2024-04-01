@@ -19,9 +19,7 @@ typedef set<ll> sl;
 template<typename T>
 using min_pq = priority_queue<T, vector<T>, greater<T>>;
 template<typename T>
-using max_pq = priority_queue<T>;
-template<typename Key, typename Value>
-using umap = unordered_map<Key, Value>;
+using max_pq = priority_queue<T>; 
 template<typename Key1, typename Key2, typename Value>
 using umumap = unordered_map<Key1, unordered_map<Key2, Value>>;
 template<typename T>
@@ -67,7 +65,19 @@ void IL(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n;
+    cin >> n;
+    vi arr;
+    IL(arr, n);
+    vi result(n), has(n+1);
+    int mex = 0;
+    FOR(i, n) {
+        if (arr[i]>=0) result[i] = mex;
+        else result[i] = mex - arr[i];
+        has[result[i]] = 1;
+        while(has[mex])mex++; 
+    }
+    display(result);
 }
 
 int main() {
@@ -75,5 +85,6 @@ int main() {
     int t = 1;
     cin >> t;
     while (t--) solve();
+
     return 0;
 }

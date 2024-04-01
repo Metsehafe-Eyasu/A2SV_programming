@@ -20,8 +20,6 @@ template<typename T>
 using min_pq = priority_queue<T, vector<T>, greater<T>>;
 template<typename T>
 using max_pq = priority_queue<T>;
-template<typename Key, typename Value>
-using umap = unordered_map<Key, Value>;
 template<typename Key1, typename Key2, typename Value>
 using umumap = unordered_map<Key1, unordered_map<Key2, Value>>;
 template<typename T>
@@ -67,7 +65,18 @@ void IL(vector<T> &arr, int n) {
 // Main function for solving the problem
 void solve() {
     // Start here
-    
+    int n, k;
+    cin >> n >> k;
+    if (n != k && k != 1) {
+        cout << -1 << endl;
+    } else if (n == k) {
+        FOR(i, n) cout << 1 << " ";
+        cout << endl;
+    } else {
+        cout << 1 << " ";
+        FOR(i, n-1) cout << 2 << " ";
+        cout << endl;
+    }
 }
 
 int main() {
@@ -75,5 +84,6 @@ int main() {
     int t = 1;
     cin >> t;
     while (t--) solve();
+
     return 0;
 }
