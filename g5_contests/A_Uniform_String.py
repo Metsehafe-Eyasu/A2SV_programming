@@ -1,5 +1,5 @@
 from collections import defaultdict, deque, Counter
-from heapq import heapify, heappop, heappush
+import heapq
 import math
 import itertools
 import sys
@@ -11,8 +11,12 @@ def S(): return input()
 
 
 def solution():
-    
-    return 0
+    n ,k = IL()
+    s = ''
+    for i in range(n):
+        ch = chr(ord('a') + (i%k))
+        s += ch
+    return s
 
 cases = 1
 cases = I()

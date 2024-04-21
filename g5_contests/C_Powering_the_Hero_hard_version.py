@@ -11,8 +11,18 @@ def S(): return input()
 
 
 def solution():
-    
-    return 0
+    n = I()
+    nums = IL()
+    heap = []
+    result = 0
+    for num in nums:
+        if num == 0:
+            if heap:
+                result -= heappop(heap)
+        else:
+            heappush(heap, -num)
+            
+    return result
 
 cases = 1
 cases = I()
